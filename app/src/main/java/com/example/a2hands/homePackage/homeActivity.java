@@ -45,6 +45,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Locale;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class homeActivity extends AppCompatActivity implements
@@ -67,6 +72,10 @@ public class homeActivity extends AppCompatActivity implements
     CircleImageView profile_image ;
     SearchView searchView;
     TextView notificationsTitle;
+    FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db;
+    String myUid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +100,9 @@ public class homeActivity extends AppCompatActivity implements
         profile_image = findViewById(R.id.profile_image);
         final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         catsSpinner.setItems(getResources().getStringArray(R.array.categories));
+        firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        myUid=firebaseAuth.getCurrentUser().getUid();
 
 
         //drawer header data
@@ -263,6 +275,51 @@ public class homeActivity extends AppCompatActivity implements
 
     }//////////////////////////////////end of onCreate method
 
+    private void CheckOnlineStatus(String status) {
+        db.collection("users/").document(myUid);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("onlineStatus", status);
+        db.collection("users/").document(myUid).update(hashMap);
+
+    }
+
+
+
+
+    @Override
+    protected void onStart() {
+        CheckOnlineStatus("online");
+        super.onStart();
+    }
+
+
+    @Override
+    protected void onResume() {
+        CheckOnlineStatus("online");
+        super.onResume();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        Calendar cal =Calendar.getInstance(Locale.ENGLISH);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy hh:mm a");
+        String dateTime =simpleDateFormat.format(cal.getTime());
+        CheckOnlineStatus(dateTime);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Calendar cal =Calendar.getInstance(Locale.ENGLISH);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy hh:mm a");
+        String dateTime =simpleDateFormat.format(cal.getTime());
+        CheckOnlineStatus(dateTime);
+        Intent intent=new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
 
 

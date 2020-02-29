@@ -33,6 +33,9 @@
         <activity android:name=".signupPackage.signupPickPictureActivity" />
         <activity android:name=".signupPackage.signupSetLocationActivity" />
         <activity android:name=".signupPackage.signUpPhoneVerificationActivity" />
+
+        <activity android:name=".ChatPackage.ChatActivity" />
+
         <activity android:name=".homePackage.CommentsPackage.CommentsActivity" />
         <activity android:name=".settingsPackage.SettingsActivity" />
         <activity android:name=".settingsPackage.AboutAppActivity" />

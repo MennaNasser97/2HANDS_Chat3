@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.a2hands.ChatPackage.ChatActivity;
 import com.example.a2hands.homePackage.PostsPackage.Post;
 import com.example.a2hands.homePackage.PostsPackage.PostFragment;
 import com.example.a2hands.homePackage.RatingPackage.Rating;
@@ -90,6 +91,16 @@ public class ProfileActivity extends AppCompatActivity  implements PostFragment.
         ratings_count = findViewById(R.id.ratings_count);
         profileEditBtn = findViewById(R.id.profileEditBtn);
         profileMessaging = findViewById(R.id.profileMessaging);
+
+        //Chat Activity
+        profileMessaging.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, ChatActivity.class);
+                intent.putExtra("hisUid", uid);
+                startActivity(intent);
+            }
+        });
 
         // setup
         setSupportActionBar(toolbar);

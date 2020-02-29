@@ -323,7 +323,8 @@ public class signupActivity extends AppCompatActivity implements DatePickerDialo
 
         Map<String,Object> registerDate = new HashMap<>();
         registerDate.put("register_date", FieldValue.serverTimestamp());
-
+        registerDate.put("onlineStatus","online");
+        registerDate.put("typingTo","noOne");
 
         db.collection("users").document(userID).set(userData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
