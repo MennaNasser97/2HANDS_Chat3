@@ -16,6 +16,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.a2hands.ChatPackage.ChatList.ChatList;
+import com.example.a2hands.ChatPackage.ChatListFragment;
 import com.example.a2hands.CreatePost;
 import com.example.a2hands.LoginActivity;
 import com.example.a2hands.NotificationsPackage.NotificationFragment;
@@ -55,7 +57,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class homeActivity extends AppCompatActivity implements
         SearchFragment.OnFragmentInteractionListener,
         PostFragment.OnListFragmentInteractionListener,
-        NotificationFragment.OnListFragmentInteractionListener{
+        NotificationFragment.OnListFragmentInteractionListener,
+        ChatListFragment.OnFragmentInteractionListener{
 
 
     //drawer
@@ -201,7 +204,7 @@ public class homeActivity extends AppCompatActivity implements
                         break;
                     case 3: navigateNotification();
                         break;
-                    case 4:
+                    case 4:navigateChatList();
 
                         break;
                 }
@@ -366,6 +369,13 @@ public class homeActivity extends AppCompatActivity implements
         ft.commit();
         badge.clearNumber();
         badge.setVisible(false);
+
+    }
+    public void navigateChatList(){
+        Fragment Chat= new Fragment();
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.homeFrag,new ChatListFragment()).addToBackStack(null);
+        ft.commit();
 
     }
 

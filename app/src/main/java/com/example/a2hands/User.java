@@ -5,6 +5,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 import java.util.Date;
 @IgnoreExtraProperties
 public class User {
+    public String Uid;
     public String country;
     public String region;
     public String first_name;
@@ -19,22 +20,24 @@ public class User {
     public String profile_cover;
     public String job_title;
     public int ratings_count;
+    public String onlineStatus;
+    public String typingTo;
 
     public User(
-                String first_name,
-                String last_name,
-                boolean gender,
-                Date birth_date,
+            String first_name,
+            String last_name,
+            boolean gender,
+            Date birth_date,
             String country,
-                String phone,
-                String region,
-                String user_name,
-                double rate,
-                String bio,
-                String profile_pic,
-                String profile_cover,
-                String job_title,
-                int ratings_count) {
+            String phone,
+            String region,
+            String user_name,
+            double rate,
+            String bio,
+            String profile_pic,
+            String profile_cover,
+            String job_title,
+            int ratings_count) {
         this.country = country;
         this.region = region;
         this.first_name = first_name;
