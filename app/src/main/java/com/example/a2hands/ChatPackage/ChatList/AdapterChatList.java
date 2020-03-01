@@ -69,7 +69,7 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyHold
         //    holder.lastMessageTv.setVisibility(View.GONE);
        // }else {
           //  holder.lastMessageTv.setVisibility(View.VISIBLE);
-          //  holder.lastMessageTv.setText(lastMessage);
+          // holder.lastMessageTv.setText(lastMessage);
 
        // }
         //set online status of other users in chatlist
