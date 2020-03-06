@@ -116,7 +116,7 @@ public class ChatActivity extends AppCompatActivity {
                 if (s.toString().trim().length() == 0){
                     CheckTypingStatus("noOne");
                 }else {
-                    String Message=message.getText().toString().trim();
+                    //String Message=message.getText().toString().trim();
                     CheckTypingStatus(hisUid);
                 }
 
@@ -181,6 +181,7 @@ public class ChatActivity extends AppCompatActivity {
                     if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)||
                             chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)){
                         chatList.add(chat);
+                        chat.setSeen(true);
                     }
 
                     adapterChat =new adapterChat(ChatActivity.this,chatList,hisImage);

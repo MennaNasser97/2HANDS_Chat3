@@ -63,15 +63,10 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyHold
                 holder.nameTv.setText(user.first_name+" "+user.last_name);
             }
         });
-        //String lastMessage = lastMessageMap.get(hisUid);
+        String lastMessage = lastMessageMap.get(hisUid);
         //set data
-        //if (lastMessage !=null || lastMessage.equals("default")){
-        //    holder.lastMessageTv.setVisibility(View.GONE);
-       // }else {
-          //  holder.lastMessageTv.setVisibility(View.VISIBLE);
-          // holder.lastMessageTv.setText(lastMessage);
-
-       // }
+            holder.lastMessageTv.setVisibility(View.VISIBLE);
+           holder.lastMessageTv.setText(lastMessage);
         //set online status of other users in chatlist
         if (usersList.get(position).onlineStatus.equals("online")){
             //online

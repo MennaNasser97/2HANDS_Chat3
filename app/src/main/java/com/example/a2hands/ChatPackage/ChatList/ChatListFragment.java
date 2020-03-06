@@ -1,4 +1,4 @@
-package com.example.a2hands.ChatPackage;
+package com.example.a2hands.ChatPackage.ChatList;
 
 
 import android.content.Context;
@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.a2hands.ChatPackage.Chat;
 import com.example.a2hands.ChatPackage.ChatList.AdapterChatList;
 import com.example.a2hands.ChatPackage.ChatList.ChatList;
 import com.example.a2hands.R;
@@ -139,7 +140,7 @@ public class ChatListFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String thelastMessage ="default";
+               String thelastMessage =" ";
                 for (DataSnapshot ds:dataSnapshot.getChildren()){
                     Chat chat=ds.getValue(Chat.class);
                     if (chat==null){
@@ -158,6 +159,7 @@ public class ChatListFragment extends Fragment {
                 }
                 adapterChatList.setLastMessageMap(userId,thelastMessage);
                 adapterChatList.notifyDataSetChanged();
+                recyclerView.setAdapter(adapterChatList);
             }
 
             @Override

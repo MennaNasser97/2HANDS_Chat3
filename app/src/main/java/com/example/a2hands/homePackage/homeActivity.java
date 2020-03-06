@@ -16,8 +16,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.a2hands.ChatPackage.ChatList.ChatList;
-import com.example.a2hands.ChatPackage.ChatListFragment;
+import com.example.a2hands.ChatPackage.ChatList.ChatListFragment;
 import com.example.a2hands.CreatePost;
 import com.example.a2hands.LoginActivity;
 import com.example.a2hands.NotificationsPackage.NotificationFragment;
