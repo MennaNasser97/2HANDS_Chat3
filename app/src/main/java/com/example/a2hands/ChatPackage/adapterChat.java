@@ -1,5 +1,6 @@
 package com.example.a2hands.ChatPackage;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -57,6 +58,7 @@ public class adapterChat extends RecyclerView.Adapter<adapterChat.MyHolder>{
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
         String message = chatList.get(position).getMessage();
@@ -92,7 +94,7 @@ public class adapterChat extends RecyclerView.Adapter<adapterChat.MyHolder>{
             }
         });
         if(position==chatList.size()-1){
-            if ((chatList.get(position).isSeen)){
+            if (chatList.get(position).isSeen()){
                 holder.isSeen.setText("seen");
             }else {
                 holder.isSeen.setText("Delivered");
@@ -100,8 +102,6 @@ public class adapterChat extends RecyclerView.Adapter<adapterChat.MyHolder>{
         }else {
             holder.isSeen.setVisibility(View.GONE);
         }
-
-
     }
 
     private void deleteMassage(int position) {

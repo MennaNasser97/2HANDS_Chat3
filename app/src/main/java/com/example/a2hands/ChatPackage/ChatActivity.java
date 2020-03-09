@@ -141,7 +141,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-
         readmessage();
         seenmassege();
         loadUserOnlineAndtypingStatus();
@@ -181,7 +180,6 @@ public class ChatActivity extends AppCompatActivity {
                     if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)||
                             chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)){
                         chatList.add(chat);
-                        chat.setSeen(true);
                     }
 
                     adapterChat =new adapterChat(ChatActivity.this,chatList,hisImage);
@@ -208,7 +206,7 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("Receiver",hisUid);
         hashMap.put("Message",messagebody);
         hashMap.put("Timestamp",dateTime);
-        hashMap.put("isSeen",false);
+        hashMap.put("isSeen","false");
         databaseReference.child("Chats").push().setValue(hashMap);
 
         //reset edittext after sending message

@@ -128,6 +128,7 @@ public class ChatListFragment extends Fragment {
                     recyclerView.setAdapter(adapterChatList);
                     for (int i=0; i<userList.size();i++){
                         lastMessage(userList.get(i).Uid);
+
                     }
                 }
 ;
@@ -154,7 +155,6 @@ public class ChatListFragment extends Fragment {
                     if (chat.getReceiver().equals(currentUser.getUid()) && chat.getSender().equals(userId) ||
                     chat.getReceiver().equals(userId) && chat.getSender().equals(currentUser.getUid())){
                         thelastMessage = chat.getMessage();
-
                     }
                 }
                 adapterChatList.setLastMessageMap(userId,thelastMessage);
@@ -169,14 +169,6 @@ public class ChatListFragment extends Fragment {
         });
     }
 
-    private void checkUserStatus(){
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null){
-
-        }else {
-
-        }
-    }
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }

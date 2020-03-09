@@ -53,19 +53,19 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyHold
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
         //get data
-        final String hisUid =usersList.get(position).Uid;
-        db.collection("users/").document(hisUid)
+        final String Uid =usersList.get(position).Uid;
+        db.collection("users/").document(Uid)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 User user = task.getResult().toObject(User.class);
-                loadPhotos(holder.profileIv,"Profile_Pics/"+hisUid+"/"+user.profile_pic );
+                loadPhotos(holder.profileIv,"Profile_Pics/"+Uid+"/"+user.profile_pic );
                 holder.nameTv.setText(user.first_name+" "+user.last_name);
             }
         });
-        String lastMessage = lastMessageMap.get(hisUid);
+        String lastMessage = lastMessageMap.get(Uid);
         //set data
-            holder.lastMessageTv.setVisibility(View.VISIBLE);
+           holder.lastMessageTv.setVisibility(View.VISIBLE);
            holder.lastMessageTv.setText(lastMessage);
         //set online status of other users in chatlist
         if (usersList.get(position).onlineStatus.equals("online")){
@@ -82,7 +82,7 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyHold
             public void onClick(View v) {
                 //start chat activity with that user
                 Intent intent = new Intent(context, ChatActivity.class);
-                intent.putExtra("hisUid",hisUid);
+                intent.putExtra("hisUid",Uid);
                 context.startActivity(intent);
             }
         });
