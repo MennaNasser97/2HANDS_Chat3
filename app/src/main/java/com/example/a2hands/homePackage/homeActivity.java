@@ -371,7 +371,6 @@ public class homeActivity extends AppCompatActivity implements
 
     }
     public void navigateChatList(){
-        Fragment Chat= new Fragment();
         final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.homeFrag,new ChatListFragment()).addToBackStack(null);
         ft.commit();

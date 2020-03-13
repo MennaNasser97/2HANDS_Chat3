@@ -1,7 +1,7 @@
 package com.example.a2hands.ChatPackage;
 
 public class Chat {
-   private String Message,Receiver,Sender,Timestamp;
+    private String Message,Receiver,Sender,Timestamp;
     boolean isSeen;
 
     public Chat() {
@@ -48,11 +48,11 @@ public class Chat {
         this.Timestamp = timestamp;
     }
 
-    public boolean isSeen() {
+    public boolean getIsSeen() {
         return isSeen;
     }
 
-    public void setSeen(boolean seen) {
+    public void setIsSeen(boolean seen) {
         isSeen = seen;
     }
 }

@@ -10,13 +10,15 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileIv"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/ic_face_black_24dp"/>
+
         <ImageView
             android:id="@+id/onlineStatusIv"
-            android:layout_width="25dp"
-            android:layout_height="25dp"/>
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+
         <TextView
             android:id="@+id/nameTv"
             android:layout_width="match_parent"
@@ -24,13 +26,14 @@
             android:text="His Name"
             android:layout_marginStart="4dp"
             android:textColor="@color/colorDark"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:layout_toEndOf="@+id/profileIv"
             android:layout_toRightOf="@+id/profileIv"/>
         <TextView
             android:id="@+id/lastMessageTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="10dp"
             android:text="The last message"
             android:layout_marginStart="4dp"
             android:maxLines="2"

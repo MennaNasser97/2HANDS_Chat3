@@ -96,7 +96,7 @@ public class ChatListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof SearchFragment.OnFragmentInteractionListener) {
+        if (context instanceof ChatListFragment.OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
@@ -142,6 +142,7 @@ public class ChatListFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                String thelastMessage =" ";
+               String seen =" ";
                 for (DataSnapshot ds:dataSnapshot.getChildren()){
                     Chat chat=ds.getValue(Chat.class);
                     if (chat==null){
@@ -156,8 +157,15 @@ public class ChatListFragment extends Fragment {
                     chat.getReceiver().equals(userId) && chat.getSender().equals(currentUser.getUid())){
                         thelastMessage = chat.getMessage();
                     }
+                   if (chat.getReceiver().equals(currentUser.getUid()) && chat.getSender().equals(userId)){
+                        if (chat.getIsSeen()){
+                            seen="noNewMessage";
+                        }else {
+                            seen="NewMessage";
+                        }
+                    }
                 }
-                adapterChatList.setLastMessageMap(userId,thelastMessage);
+                adapterChatList.setLastMessageAndSeenMap(userId,thelastMessage,seen);
                 adapterChatList.notifyDataSetChanged();
                 recyclerView.setAdapter(adapterChatList);
             }
@@ -168,7 +176,6 @@ public class ChatListFragment extends Fragment {
             }
         });
     }
-
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }

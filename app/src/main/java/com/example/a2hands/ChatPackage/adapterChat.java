@@ -94,7 +94,7 @@ public class adapterChat extends RecyclerView.Adapter<adapterChat.MyHolder>{
             }
         });
         if(position==chatList.size()-1){
-            if (chatList.get(position).isSeen()){
+            if (chatList.get(position).getIsSeen()){
                 holder.isSeen.setText("seen");
             }else {
                 holder.isSeen.setText("Delivered");

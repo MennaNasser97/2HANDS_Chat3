@@ -2,7 +2,13 @@ package com.example.a2hands.ChatPackage.ChatList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +34,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyHolder> {
 
     Context context;
     List<User> usersList;
     private HashMap<String,String> lastMessageMap;
+    private HashMap<String,String> SeenOfTheLastMessage;
     String hisImage;
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
 
@@ -41,6 +49,7 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyHold
         this.context = context;
         this.usersList = usersList;
         lastMessageMap = new HashMap<>();
+        SeenOfTheLastMessage =new HashMap<>();
     }
 
     @NonNull
@@ -65,16 +74,28 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyHold
         });
         String lastMessage = lastMessageMap.get(Uid);
         //set data
-           holder.lastMessageTv.setVisibility(View.VISIBLE);
-           holder.lastMessageTv.setText(lastMessage);
+           if (Objects.equals(SeenOfTheLastMessage.get(Uid), "NewMessage")){
+               holder.lastMessageTv.setVisibility(View.VISIBLE);
+               holder.lastMessageTv.setText(lastMessage);
+               SpannableString ss = new SpannableString(holder.lastMessageTv.getText());
+               StyleSpan bold = new StyleSpan(Typeface.BOLD);
+               ss.setSpan(bold,0,holder.lastMessageTv.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+               holder.lastMessageTv.setText(ss);
+               holder.lastMessageTv.setTextSize(20f);
+               holder.onlineStatusIv.setImageResource(R.drawable.circle_online);
+           }
+           else {
+               holder.lastMessageTv.setVisibility(View.VISIBLE);
+               holder.lastMessageTv.setText(lastMessage);
+           }
         //set online status of other users in chatlist
-        if (usersList.get(position).onlineStatus.equals("online")){
+        /*if (usersList.get(position).onlineStatus.equals("online")){
             //online
-            holder.onlineStatusIv.setImageResource(R.drawable.circle_online);
+
         }else {
             //offline
             holder.onlineStatusIv.setImageResource(R.drawable.circle_offline);
-        }
+        }*/
 
         //handle click of user in chatlist
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -88,10 +109,11 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyHold
         });
 
     }
-    public void setLastMessageMap(String userId,String lastMessage){
+    public void setLastMessageAndSeenMap(String userId,String lastMessage,String IsSeen){
         lastMessageMap.put(userId,lastMessage);
-
+        SeenOfTheLastMessage.put(userId,IsSeen);
     }
+
     void loadPhotos(final ImageView imgV , String path){
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
         mStorageRef.child(path).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

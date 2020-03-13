@@ -71,7 +71,7 @@ public class ChatActivity extends AppCompatActivity {
     List<Chat> chatList;
     com.example.a2hands.ChatPackage.adapterChat adapterChat;
 
-   public String hisUid;
+    public String hisUid;
     String myUid;
     String hisImage;
 
@@ -134,12 +134,13 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String Message=message.getText().toString().trim();
                 if(TextUtils.isEmpty(Message)){
-                    Toast.makeText(ChatActivity.this, "Cannot send the empty message...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatActivity.this, "Cannot send empty message...", Toast.LENGTH_SHORT).show();
                 }else {
                     sendMessage(Message);
                 }
             }
         });
+
 
         readmessage();
         seenmassege();
@@ -206,7 +207,7 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("Receiver",hisUid);
         hashMap.put("Message",messagebody);
         hashMap.put("Timestamp",dateTime);
-        hashMap.put("isSeen","false");
+        hashMap.put("isSeen",false);
         databaseReference.child("Chats").push().setValue(hashMap);
 
         //reset edittext after sending message
@@ -260,8 +261,8 @@ public class ChatActivity extends AppCompatActivity {
     protected void onPause() {
         loadUserOnlineAndtypingStatus();
         CheckTypingStatus("noOne");
-        super.onPause();
         userRefForseen.removeEventListener(seenListner);
+        super.onPause();
     }
 
     @Override
@@ -271,16 +272,16 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     //get other user's information
-   private void loadhisinfo() {
-       db.collection("users/").document(hisUid)
-               .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-           @Override
-           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-               User user = task.getResult().toObject(User.class);
-               loadPhotos(profileimage,"Profile_Pics/"+hisUid+"/"+user.profile_pic );
-               hisname.setText(user.first_name+" "+user.last_name);
-           }
-       });
+    private void loadhisinfo() {
+        db.collection("users/").document(hisUid)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                User user = task.getResult().toObject(User.class);
+                loadPhotos(profileimage,"Profile_Pics/"+hisUid+"/"+user.profile_pic );
+                hisname.setText(user.first_name+" "+user.last_name);
+            }
+        });
     }
 
 
@@ -301,8 +302,8 @@ public class ChatActivity extends AppCompatActivity {
                                 } else {
                                     userstatus.setText("Last seen at: "+onlineStatus);
                                 }
-                                }
                             }
+                        }
                     }
                 });
 
@@ -345,14 +346,14 @@ public class ChatActivity extends AppCompatActivity {
 
     //@Override
     //public boolean onCreateOptionsMenu(Menu menu) {
-      //  getMenuInflater().inflate(R.menu.bottom_navigation,menu);
-        //menu.findItem(R.id.searchNav);
+    //  getMenuInflater().inflate(R.menu.bottom_navigation,menu);
+    //menu.findItem(R.id.searchNav);
 
-     //   return super.onCreateOptionsMenu(menu);
+    //   return super.onCreateOptionsMenu(menu);
     //}
 
     //@Override
     //public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-      //  return super.onOptionsItemSelected(item);
+    //  return super.onOptionsItemSelected(item);
     //}
 }
